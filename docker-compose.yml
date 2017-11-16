@@ -1,0 +1,21 @@
+version: '2'
+services:
+    redis:
+        hostname: redis
+        image: redis:latest
+        command: redis-server
+    worker:
+        build:
+            context: .
+            dockerfile: dockerfile
+        volumes:
+            - .:/app
+        links:
+            - redis
+        depends_on:
+            - redis
+    database:
+        hostname: mongo
+        image: mongo:latest
+        ports:
+            - "27018:27017"
