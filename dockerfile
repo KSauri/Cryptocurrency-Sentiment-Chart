@@ -4,4 +4,6 @@ ADD ./test_celery/ /app/
 WORKDIR /app
 ADD . /app
 RUN pip install -r requirements.txt
+RUN python -m nltk.downloader vader_lexicon
+
 ENTRYPOINT celery -A test_celery worker --loglevel=info

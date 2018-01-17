@@ -4,18 +4,22 @@ services:
         hostname: redis
         image: redis:latest
         command: redis-server
-    worker:
-        build:
-            context: .
-            dockerfile: dockerfile
-        volumes:
-            - .:/app
-        links:
-            - redis
-        depends_on:
-            - redis
     database:
         hostname: mongo
         image: mongo:latest
         ports:
             - "27018:27017"
+    worker:
+        build:
+            context: .
+            dockerfile: dockerfile
+        env_file:
+            - ./.env
+        volumes:
+            - .:/app
+        links:
+            - redis
+            - database
+        depends_on:
+            - redis
+            - database
