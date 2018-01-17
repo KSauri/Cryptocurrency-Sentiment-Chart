@@ -1,12 +1,11 @@
-from .tasks import longtime_add
+from .tasks import process_crypto_data, process_reddit_data
 import time
 
 
 if __name__ == '__main__':
-    for _ in range(10):
-        result = longtime_add.delay(1, 8)
-        print('Task finished?', result.ready())
-        print('Task result:', result.result)
-        time.sleep(10)
-        print('Task finished"', result.ready())
-        print('Task result:', result.result)
+    result = process_crypto_data.delay()
+    print('Task finished?', result.ready())
+    print('Task result:', result.result)
+    time.sleep(10)
+    print('Task finished"', result.ready())
+    print('Task result:', result.result)
