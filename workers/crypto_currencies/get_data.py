@@ -1,4 +1,3 @@
-import json
 import requests
 
 from ast import literal_eval
@@ -30,7 +29,7 @@ class CryptoCurrency:
         final_price_data = {
             'market_cap': 0.0,
             'coins': [],
-            'timestamp': self.timestamp
+            'timestamp': str(self.timestamp)
         }
         for coin in price_data:
             final_price_data['market_cap'] += float(coin['market_cap_usd'])
@@ -41,4 +40,4 @@ class CryptoCurrency:
                 'market_cap': coin['market_cap_usd']
             })
 
-        return json.dumps(final_price_data)
+        return final_price_data

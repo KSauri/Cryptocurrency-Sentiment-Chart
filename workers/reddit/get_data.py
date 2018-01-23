@@ -1,4 +1,3 @@
-import json
 import os
 import praw
 import datetime
@@ -46,9 +45,12 @@ class Reddit:
         return sid.polarity_scores(reddit_comment)['compound']
 
     def process_data(self):
+        """
+        TODO add docstring
+        """
         final_sentiment_data = {
             'avg_sentiment': 0.0,
-            'timestamp': self.timestamp
+            'timestamp': str(self.timestamp)
         }
 
         sentiments = []
@@ -60,4 +62,4 @@ class Reddit:
             sentiments.append(self._get_score(next_comment))
 
         final_sentiment_data['avg_sentiment'] = reduce(lambda x, y: x + y, sentiments) / len(sentiments)
-        return json.dumps(final_sentiment_data)
+        return final_sentiment_data

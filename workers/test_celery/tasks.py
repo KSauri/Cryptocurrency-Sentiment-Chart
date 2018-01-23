@@ -9,7 +9,7 @@ def process_crypto_data():
     current_time = datetime.now()
     crypto = CryptoCurrency(current_time)
     response = crypto.get_data()
-    return CryptoCurrency.process_data(response)
+    return crypto.process_data(response)
 
 
 @app.task

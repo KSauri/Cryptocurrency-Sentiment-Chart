@@ -8,15 +8,13 @@ services:
         hostname: mongo
         image: mongo:latest
         ports:
-            - "27018:27017"
+            - "27017:27017"
     worker:
         build:
-            context: .
+            context: ./workers
             dockerfile: dockerfile
         env_file:
             - ./.env
-        volumes:
-            - .:/app
         links:
             - redis
             - database
