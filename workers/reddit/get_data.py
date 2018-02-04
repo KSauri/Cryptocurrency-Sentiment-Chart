@@ -57,6 +57,7 @@ class Reddit:
         comments = self.get_data()
 
         # NB while loop = super gross here
+        # TODO swap out time.sleep() for while loop, or something else
         while datetime.datetime.now() < self.finish_time:
             next_comment = next(comments)
             sentiments.append(self._get_score(next_comment))
