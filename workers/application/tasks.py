@@ -8,6 +8,7 @@ from reddit.get_data import Reddit
 client = MongoClient("mongodb://database:27017")
 db = client['mongo']
 
+# TODO check if this is kosher
 REDDIT_COLLECTION = db.reddit_collection
 CRYPTO_COLLECTION = db.crypto_collection
 
@@ -15,7 +16,6 @@ CRYPTO_COLLECTION = db.crypto_collection
 @app.task
 def process_crypto_data():
     current_time = datetime.now()
-    print("executing crypto task")
     crypto = CryptoCurrency(current_time)
     response = crypto.get_data()
     return crypto.process_data(response)
@@ -30,6 +30,7 @@ def process_reddit_data():
 
 @app.task
 def save_data(data, collection_type):
+    # TODO fix this
     if collection_type == "reddit":
         return str(REDDIT_COLLECTION.insert_one(data).inserted_id)
     else:

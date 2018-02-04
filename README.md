@@ -16,6 +16,11 @@ The next step is incorporating a cronjob container that can communicate with the
 
 You will need a Docker engine in order to download this project.  I will also be hosting the image on DockerHub - TODO Link here
 
+bash
+```
+docker-compose up
+```
+
 ## Technical Hurdles
 
 ## Looking Back
