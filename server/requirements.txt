@@ -1,0 +1,8 @@
+eventlet
+flask
+flask-socketio
+python-socketio
+requests
+eventlet
+gevent
+Flask-WTF
