@@ -23,6 +23,7 @@
   "homepage": "https://github.com/ksauri/celery_project#readme",
   "dependencies": {
     "chart.js": "^2.7.1",
+    "fixed-size-queue": "^1.0.1",
     "socket.io": "^2.0.4"
   },
   "devDependencies": {
