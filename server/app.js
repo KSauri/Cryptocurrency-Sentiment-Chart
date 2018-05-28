@@ -22,6 +22,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+// add persistence via mongodb
+//Set up mongoose connection
+var mongoose = require('mongoose');
+var mongoDB = 'mongodb://mongo:27017/mongo';
+mongoose.connect(mongoDB);
+mongoose.Promise = global.Promise;
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

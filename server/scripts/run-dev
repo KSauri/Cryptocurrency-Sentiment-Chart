@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+./scripts/wait-for-it.sh -h ${DATABASE_HOST:-mongo} -p ${DATABASE_PORT:-27017} -t 30
+npm run devstart
