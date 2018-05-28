@@ -1,9 +1,0 @@
-eventlet
-flask
-flask-socketio
-python-socketio
-Flask-Cache
-requests
-eventlet
-gevent
-Flask-WTF

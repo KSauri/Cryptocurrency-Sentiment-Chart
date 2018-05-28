@@ -1,11 +1,8 @@
-FROM python:3.6
-EXPOSE 5000/tcp
-ADD requirements.txt /server/
-ADD . /server
-VOLUME ${pwd}/server.py:/server/server.py
-WORKDIR /server
-RUN pip install -r requirements.txt
-ENV SECRET_KEY=${SECRET_KEY}
-
-ENTRYPOINT ["python"]
-CMD ["server.py"]
+FROM node:latest
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+COPY package.json /usr/src/app/
+RUN npm install
+COPY . /usr/src/app
+EXPOSE 3000
+CMD npm start
