@@ -5,4 +5,4 @@ WORKDIR /app
 RUN pip install -r requirements.txt
 RUN python -m nltk.downloader vader_lexicon
 
-ENTRYPOINT celery -A application worker --loglevel=info
+CMD ["./scripts/run-dev"]
