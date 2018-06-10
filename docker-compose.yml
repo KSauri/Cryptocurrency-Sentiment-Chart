@@ -1,0 +1,61 @@
+version: "3"
+services:
+  server:
+    container_name: server
+    restart: always
+    build: ./server
+    ports:
+      - "3000:3000"
+    links:
+      - mongo
+    volumes:
+      - ./server/bin:/usr/src/app/bin
+      - ./server/controllers:/usr/src/app/controllers
+      - ./server/models:/usr/src/app/models
+      - ./server/public:/usr/src/app/public
+      - ./server/routes:/usr/src/app/routes
+      - ./server/scripts:/usr/src/app/scripts
+      - ./server/views:/usr/src/app/views
+      - ./server/app.js:/usr/src/app/app.js
+      - ./server/package.json:/usr/src/app/package.json
+      - ./server/package-lock.json:/usr/src/app/package-lock.json
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27017:27017"
+  redis:
+    container_name: redis
+    hostname: redis
+    image: redis:latest
+    command: redis-server --appendonly yes
+    volumes:
+      - ./data:/data
+  worker:
+      container_name: worker
+      build:
+        context: ./data-processor
+        dockerfile: Dockerfile-worker
+      env_file:
+        - ./.env
+      links:
+        - redis
+        - mongo
+      depends_on:
+        - redis
+        - mongo
+      volumes:
+        - ./data-processor:/app/
+  scheduler:
+      container_name: scheduler
+      build:
+        context: ./data-processor
+        dockerfile: Dockerfile-scheduler
+      env_file:
+        - ./.env
+      links:
+        - worker
+      depends_on:
+        - worker

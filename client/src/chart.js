@@ -1,7 +1,6 @@
 import Chart from 'chart.js';
 import io from 'socket.io-client';
 import { redditBackgroundColor, redditBorderColor } from './chartsettings.js';
-import { FixedQueue } from './utils.js';
 
 // Psuedocode of what needs to happen:
 // A chart needs to load after the page is ready.
@@ -24,7 +23,7 @@ let cryptoData = {
 };
 
 export default function main () {
-    const socket = io('http://localhost:5000');
+    // const socket = io('http://localhost:5000');
 
     var ctx = document.getElementById("myChart").getContext('2d');
     

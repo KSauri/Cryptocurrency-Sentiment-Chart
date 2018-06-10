@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-celery -A application beat -l debug &
-celery -A application worker -l info &
-tail -f /dev/null
