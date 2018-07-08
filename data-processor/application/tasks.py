@@ -10,17 +10,8 @@ REDDIT = RedditCommentSentiment()
 
 
 @app.task
-def process_crypto_data():
-    return CRYPTO.get()
-
-
-@app.task
-def process_reddit_data():
-    return REDDIT.get()
-
-
-@app.task
-def save_crypto_data(data):
+def save_crypto_data():
+    data = CRYPTO.get()
     for coin in data['coins']:
         CRYPTO.save_coin_data(coin)
     CRYPTO.save_market_data(data['market'])
@@ -28,12 +19,13 @@ def save_crypto_data(data):
 
 
 @app.task
-def save_reddit_data(data):
+def save_reddit_data():
+    data = REDDIT.get()
     REDDIT.save(data)
     return True
 
 @app.task
 def master_task():
-    chain(process_crypto_data.s(), save_crypto_data.s()).delay()
-    chain(process_reddit_data.s(), save_reddit_data.s()).delay()
+    save_crypto_data.delay()
+    save_reddit_data.delay()
     return True

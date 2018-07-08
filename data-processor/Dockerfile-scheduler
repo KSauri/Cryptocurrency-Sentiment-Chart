@@ -5,4 +5,4 @@ WORKDIR /app
 RUN pip install -r requirements.txt
 RUN python -m nltk.downloader vader_lexicon
 
-CMD celery -A application beat -l debug
+CMD celery -A application beat -l debug --pidfile="/tmp/celerybeat.pid"

@@ -28,22 +28,22 @@ class CryptoPrices:
         final_price_data = {
             'market': {
                 'market_cap': 0.0,
-                'timestamp': str(timestamp)
+                'timestamp': timestamp
             },
             'coins': [],
         }
         for coin in price_data:
             final_price_data['market']['market_cap'] += float(coin['market_cap_usd'])
             final_price_data['coins'].append({
-                'name': coin['name'],
+                'name': coin['name'].lower(),
                 'price': coin['price_usd'],
                 'rank': coin['rank'],
                 'market_cap': coin['market_cap_usd'],
-                'timestamp': str(timestamp)
+                'timestamp': timestamp
             })
 
         return final_price_data
-    
+
     def get(self):
         """
         `get()` will fetch name, price, rank, and market cap data for the top 25 crypto currencies.
@@ -54,14 +54,24 @@ class CryptoPrices:
         Returns:
             dict: a dictionary containing information about the top 25 crypto currencies
         """
-        timestamp = datetime.now()
+        timestamp = datetime.utcnow()
         data = self._get_data()
         return self._process_prices(data, timestamp)
 
     def save_coin_data(self, coin_data):
+        """
+        Saves data for a single crypto currency (coin) in MongoDB.
+
+        Returns `True` on success
+        """
         self._coin_collection.insert_one(coin_data)
         return True
-        
+
     def save_market_data(self, market_data):
+        """
+        Saves data for the overall market (top 25 coins) in MongoDB.
+
+        Returns `True` on success
+        """
         self._market_collection.insert_one(market_data)
         return True

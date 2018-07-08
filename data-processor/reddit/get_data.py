@@ -71,13 +71,12 @@ class RedditCommentSentiment:
         """
         final_sentiment_data = {
             'avg_sentiment': 0.0,
-            'timestamp': str(finish_time)
+            'timestamp': finish_time
         }
-
         sentiments = []
         comments = self._get_data()
 
-        while datetime.datetime.now() < finish_time:
+        while datetime.datetime.utcnow() < finish_time:
             next_comment = next(comments)
             sentiments.append(self._get_score(next_comment))
 
@@ -96,7 +95,7 @@ class RedditCommentSentiment:
             dict: a dictionary containing information about the sentiment of reddit comments for the past 5 minutes.
         """
         # TODO log the time
-        timestamp = datetime.datetime.now()
+        timestamp = datetime.datetime.utcnow()
         finish_time = timestamp + self.timedelta
         return self._process_comments(finish_time)
 
