@@ -21,9 +21,8 @@ exports.marketList = function(req, res) {
             //Successful, so render
             let formattedMarketPrices = marketPrices.map(price => (
                 {
-                    coins: price.coins,
                     timestamp: price.timestamp,
-                    marketCap: price.marketCap
+                    marketCap: price.market_cap
                 }
             ));
 

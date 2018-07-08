@@ -7,7 +7,7 @@ var coinSchema = new Schema(
     name: {type: String, required: true, max: 100},
     price: {type: Number, required: true},
     rank: {type: Number, required: true},
-    marketCap: {type: Number, required: true},
+    market_cap: {type: Number, required: true},
     timestamp: {type: Date, required: true}
   }
 );

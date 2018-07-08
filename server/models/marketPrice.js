@@ -4,8 +4,7 @@ var Schema = mongoose.Schema;
 
 var marketSchema = new Schema(
   {
-    coins: [{type: String, required: true}],
-    marketCap: {type: Number, required: true},
+    market_cap: {type: Number, required: true},
     timestamp: {type: Date, required: true}
   }
 );

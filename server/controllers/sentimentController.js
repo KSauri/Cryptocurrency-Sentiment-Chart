@@ -19,12 +19,12 @@ exports.sentimentList = function(req, res) {
         .exec(function (err, sentiments) {
         if (err) { return next(err); }
             //Successful, so render
-            let formattedSentiments = sentiments.map(discreteSentiment => (
-                {
-                    sentiment: discreteSentiment.sentiment, 
+            let formattedSentiments = sentiments.map(discreteSentiment => {
+                return {
                     timestamp: discreteSentiment.timestamp,
+                    sentiment: discreteSentiment.avg_sentiment, 
                 }
-            ));
+            });
 
             res.send(JSON.stringify(formattedSentiments));
         });

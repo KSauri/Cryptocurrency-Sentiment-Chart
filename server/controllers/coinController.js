@@ -7,8 +7,8 @@ exports.coinDetail = function(req, res) {
     // set headers to be json
     res.setHeader('Content-Type', 'application/json');
 
-    var now = Date.now()
-    var weekAgo = moment(now).subtract(7, 'days')
+    let now = Date.now()
+    let weekAgo = moment(now).subtract(7, 'days')
     CoinPrices.find({
         timestamp: {
           $gte: weekAgo.toDate(),

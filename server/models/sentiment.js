@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 
 var sentimentSchema = new Schema(
   {
-    sentiment: {type: Number, required: true},
+    avg_sentiment: {type: Number, required: true},
     timestamp: {type: Date, required: true}
   }
 );
