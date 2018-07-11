@@ -1,9 +1,11 @@
 var CoinPrices = require('../models/coinPrice');
 var moment = require('moment')
 
-
+// TODO - change this so
+// that on connection, you send the data
+// and then emit events as you go
 // Display detail page for a specific Coin.
-exports.coinDetail = function(req, res) {
+exports.coinList = function(req, res) {
     // set headers to be json
     res.setHeader('Content-Type', 'application/json');
 
@@ -36,4 +38,5 @@ exports.coinDetail = function(req, res) {
         }
         });
 };
+
 

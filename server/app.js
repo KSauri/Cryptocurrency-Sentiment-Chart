@@ -3,10 +3,25 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
-var indexRouter = require('./routes/index');
+var socket_io = require( "socket.io" );
 
 var app = express();
+
+// Socket.io
+var io = socket_io();
+app.io = io;
+
+// give socket io to routes
+var indexRouter = require('./routes/index')(io);
+// socket.io events
+io.on('connection', function(client) {  
+  console.log('Client connected...');
+
+  client.emit('messages', 'Hello from server');
+  client.on('join', function(data) {
+      console.log(data);
+  });
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -44,5 +59,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;

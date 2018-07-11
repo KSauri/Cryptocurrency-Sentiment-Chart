@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
 });
 
 // get details for a coin by name
-router.get('/coin/:name', coinController.coinDetail);
+router.get('/coin/:name', coinController.coinList);
 
 // get information about the overall market
 router.get('/market', marketController.marketList);
@@ -20,4 +20,11 @@ router.get('/market', marketController.marketList);
 // get reddit sentiment data
 router.get('/sentiment', sentimentController.sentimentList);
 
-module.exports = router;
+module.exports = function(io) {
+
+  io.on('connection', function(socket) { 
+      console.log("a connection")
+  });
+
+  return router;
+}

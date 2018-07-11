@@ -2,6 +2,9 @@ var MarketPrices = require('../models/marketPrice');
 var moment = require('moment')
 
 
+// TODO - change this so
+// that on connection, you send the data
+// and then emit events as you go
 // list details of the overall crypto market
 exports.marketList = function(req, res) {
     // set headers to be json    

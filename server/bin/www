@@ -20,10 +20,14 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+// attach io to server
+var io = app.io
+io.attach(server);
 
 /**
  * Listen on provided port, on all network interfaces.
  */
+
 
 server.listen(port);
 server.on('error', onError);
@@ -88,3 +92,4 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+

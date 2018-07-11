@@ -1,13 +1,24 @@
-import Chart from 'chart.js';
+import { Line } from 'react-chartjs-2';
+import React from 'react';
 import io from 'socket.io-client';
-import { redditBackgroundColor, redditBorderColor } from './chartsettings.js';
 
-// Psuedocode of what needs to happen:
-// A chart needs to load after the page is ready.
-// Data needs to be sent that populates the full chart.
-// Methods needs to be created that update the data within the chart.
+export const redditBackgroundColor = [
+    'rgba(255, 99, 132, 0.2)',
+    'rgba(54, 162, 235, 0.2)',
+    'rgba(255, 206, 86, 0.2)',
+    'rgba(75, 192, 192, 0.2)',
+    'rgba(153, 102, 255, 0.2)',
+    'rgba(255, 159, 64, 0.2)'
+];
 
-
+export const redditBorderColor = [
+    'rgba(255,99,132,1)',
+    'rgba(54, 162, 235, 1)',
+    'rgba(255, 206, 86, 1)',
+    'rgba(75, 192, 192, 1)',
+    'rgba(153, 102, 255, 1)',
+    'rgba(255, 159, 64, 1)'
+];
 let redditData = {
     label: 'Reddit',
     yAxisID: 'reddit',
@@ -19,54 +30,40 @@ let redditData = {
 let cryptoData = {
     label: 'Crypto',
     yAxisID: 'crypto',
-    data: [1, 1, 1, 1, 0]
+    data: [.12, .44, -.1, -.21, 0]
 };
 
-export default function main () {
-    // const socket = io('http://localhost:5000');
-
-    var ctx = document.getElementById("myChart").getContext('2d');
-    
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['00:00:00', '00:00:05', '00:00:10', '00:00:15', '00:00:20'],
-            datasets: [redditData, cryptoData]
-        },
-        options: {
-            scales: {
-            yAxes: [{
-                id: 'reddit',
-                type: 'linear',
-                position: 'left',
-            }, {
-                id: 'crypto',
-                type: 'linear',
-                position: 'right',
-                ticks: {
-                max: 1,
-                min: 0
-                }
-            }]
-            }
+const options = {
+    scales: {
+      yAxes: [{
+        id: 'reddit',
+        type: 'linear',
+        position: 'left',
+      }, {
+        id: 'crypto',
+        type: 'linear',
+        position: 'right',
+        ticks: {
+          max: 1,
+          min: -1
         }
-    });
+      }]
+    }   
+};
 
-    function addData(chart, label, data, idx) {
-        chart.data.labels.push(label);
-        chart.data.datasets[idx].push(data)
-        chart.update();
-    }
-    
+const data = {
+    labels: ['00:00:00', '00:00:05', '00:00:10', '00:00:15', '00:00:20'],
+    datasets: [redditData, cryptoData]
+};
 
-    socket.on('connect_response', function (data) {
-        console.log(data)
-        
+
+const Chart = (props) => {
+    var socket = io("http://localhost:3000/");
+    socket.on('messages', function(data) {
+        alert(data);
     });
-    
-    socket.on('reddit', function (data) {
-        // socket.send(msg);
-        console.log(data)
-    });
-    
-}
+    const chart = <Line data={data} options={options} />;
+    return chart;
+};
+
+export default Chart;

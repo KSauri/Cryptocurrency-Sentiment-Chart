@@ -7,7 +7,10 @@
     "react": "^16.4.0",
     "react-chartjs-2": "^2.7.2",
     "react-dom": "^16.4.0",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "socket.io": "^2.1.1",
+    "socket.io-client": "^2.1.1",
+    "websocket": "^1.0.26"
   },
   "scripts": {
     "start": "react-scripts start",
